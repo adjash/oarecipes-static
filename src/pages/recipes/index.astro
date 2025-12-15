@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+const recipes = await getCollection("recipes");
+---
+
+<Layout>
+  <h1>Recipes</h1>
+
+  <ul>
+    {
+      recipes.map((recipe) => (
+        <li>
+          <a href={`/recipes/${recipe.slug}`}>
+            <h2>{recipe.data.title}</h2>
+            <p>{recipe.data.description}</p>
+          </a>
+
+          <ul>
+            {recipe.data.tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

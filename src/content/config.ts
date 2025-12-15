@@ -1,0 +1,25 @@
+import { defineCollection, z } from "astro:content";
+
+const recipes = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    tags: z.array(z.string()),
+    servings: z.number(),
+    caloriesPerServing: z.number(),
+    prepTime: z.number(),
+    cookTime: z.number(),
+    ingredients: z.array(
+      z.object({
+        name: z.string(),
+        amount: z.number(),
+        unit: z.string(),
+      })
+    ),
+  }),
+});
+
+export const collections = {
+  recipes,
+};
