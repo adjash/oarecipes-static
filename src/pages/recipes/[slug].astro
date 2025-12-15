@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
   const recipes = await getCollection("recipes");
@@ -24,19 +25,26 @@ const { Content } = await recipe.render();
       Prep: {recipe.data.prepTime} min, Cook: {recipe.data.cookTime} min, Servings:
       {recipe.data.servings}
     </p>
-
-    <h2>Ingredients</h2>
-    <ul>
-      {
-        recipe.data.ingredients.map((ingredient) => (
-          <li>
-            {ingredient.amount} {ingredient.unit} {ingredient.name}
-          </li>
-        ))
-      }
-    </ul>
-
-    <h2>Instructions</h2>
-    <Content />
+    <Image src={recipe.data.image} alt={recipe.data.title} />
+    <section>
+      <h2>Ingredients</h2>
+      <ul>
+        {
+          recipe.data.ingredients.map((ingredient) => (
+            <li>
+              {ingredient.amount} {ingredient.unit} {ingredient.name}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <section>
+      <h2>Instructions</h2>
+      <Content />
+    </section>
+    <aside>
+      <h2>Notes:</h2>
+      {recipe.data.notes}
+    </aside>
   </article>
 </Layout>
