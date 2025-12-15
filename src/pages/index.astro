@@ -1,10 +1,47 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const recipes = await getCollection("recipes");
+
+const recent = recipes.filter((r) => r.data).slice(0, 3);
 ---
 
 <Layout>
-  <h1>Homepage</h1>
+  <div class="mx-auto max-w-5xl px-4 py-10">
+    <h1 class="mb-8 text-3xl font-bold tracking-tight">Most recent recipes</h1>
+    <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        recent.map((recipe) => (
+          <li class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-lg">
+            <a
+              href={`/recipes/${recipe.slug}`}
+              class="flex h-full flex-col no-underline"
+            >
+              <Image
+                src={recipe.data.image}
+                alt={recipe.data.title}
+                class="aspect-[4/3] w-full object-cover"
+              />
+
+              <div class="flex flex-1 flex-col p-4">
+                <h2 class="mb-3 text-xl font-semibold leading-snug text-gray-900">
+                  {recipe.data.title}
+                </h2>
+
+                <ul class="mt-auto flex flex-wrap gap-2">
+                  {recipe.data.tags.map((tag) => (
+                    <li class="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-600">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </Layout>

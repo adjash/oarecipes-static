@@ -10,4 +10,10 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  redirects: {
+    "/recipes": {
+      status: 302,
+      destination: "/recipes/1",
+    },
+  },
 });

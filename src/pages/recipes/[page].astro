@@ -3,7 +3,15 @@ import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
-const recipes = await getCollection("recipes");
+export async function getStaticPaths({ paginate }: { paginate: any }) {
+  const recipes = await getCollection("recipes");
+
+  return paginate(recipes, {
+    pageSize: 3, // 3 columns x 3 rows
+  });
+}
+
+const { page } = Astro.props;
 ---
 
 <Layout>
@@ -12,7 +20,7 @@ const recipes = await getCollection("recipes");
 
     <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {
-        recipes.map((recipe) => (
+        page.data.map((recipe) => (
           <li class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-lg">
             <a
               href={`/recipes/${recipe.slug}`}
@@ -42,5 +50,38 @@ const recipes = await getCollection("recipes");
         ))
       }
     </ul>
+
+    <!-- Pagination controls -->
+    <nav class="mt-12 flex items-center justify-between">
+      {
+        page.url.prev ? (
+          <a
+            href={page.url.prev}
+            class="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+          >
+            ← Previous
+          </a>
+        ) : (
+          <span />
+        )
+      }
+
+      <p class="text-sm text-gray-500">
+        Page {page.currentPage} of {page.lastPage}
+      </p>
+
+      {
+        page.url.next ? (
+          <a
+            href={page.url.next}
+            class="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+          >
+            Next →
+          </a>
+        ) : (
+          <span />
+        )
+      }
+    </nav>
   </div>
 </Layout>
