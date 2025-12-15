@@ -17,34 +17,61 @@ const { Content } = await recipe.render();
 ---
 
 <Layout>
-  <article>
-    <h1>{recipe.data.title}</h1>
-    <p>{recipe.data.description}</p>
+  <article class="mx-auto w-[90%] max-w-5xl px-4 py-10">
+    <h1 class="mb-2 text-4xl font-bold tracking-tight text-gray-900">
+      {recipe.data.title}
+    </h1>
 
-    <p>
-      Prep: {recipe.data.prepTime} min, Cook: {recipe.data.cookTime} min, Servings:
+    <p class="mb-4 text-lg text-gray-600">
+      {recipe.data.description}
+    </p>
+
+    <p class="mb-8 text-sm text-gray-500">
+      Prep: {recipe.data.prepTime} min · Cook: {recipe.data.cookTime} min · Servings:
       {recipe.data.servings}
     </p>
-    <Image src={recipe.data.image} alt={recipe.data.title} />
-    <section>
-      <h2>Ingredients</h2>
-      <ul>
-        {
-          recipe.data.ingredients.map((ingredient) => (
-            <li>
-              {ingredient.amount} {ingredient.unit} {ingredient.name}
-            </li>
-          ))
-        }
-      </ul>
-    </section>
-    <section>
-      <h2>Instructions</h2>
-      <Content />
-    </section>
-    <aside>
-      <h2>Notes:</h2>
-      {recipe.data.notes}
+
+    <Image
+      src={recipe.data.image}
+      alt={recipe.data.title}
+      class="mb-10 max-h-125 w-full rounded-2xl object-cover shadow-sm"
+    />
+
+    <div class="grid gap-10 lg:grid-cols-3">
+      <section class="lg:col-span-1">
+        <h2 class="mb-4 text-xl font-semibold text-gray-900">Ingredients</h2>
+
+        <ul class="space-y-2 text-gray-700">
+          {
+            recipe.data.ingredients.map((ingredient) => (
+              <li class="flex gap-2 border-b-2">
+                <span class="font-medium">
+                  {ingredient.amount} {ingredient.unit}
+                </span>
+                <span>{ingredient.name}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="lg:col-span-2">
+        <h2 class="mb-4 text-xl font-semibold text-gray-900">Instructions</h2>
+
+        <div
+          class="prose prose-gray max-w-none [&_ol]:list-decimal [&_li]:mb-2 text-xl"
+        >
+          <Content />
+        </div>
+      </section>
+    </div>
+
+    <aside class="mt-12 rounded-2xl bg-gray-50 p-6">
+      <h2 class="mb-3 text-xl font-semibold text-gray-900">Notes</h2>
+
+      <div class="text-gray-700">
+        {recipe.data.notes}
+      </div>
     </aside>
   </article>
 </Layout>
