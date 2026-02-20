@@ -37,25 +37,25 @@ const { Content } = await recipe.render();
       class="mb-10 max-h-125 w-full rounded-2xl object-cover shadow-sm"
     />
 
-    <div class="grid gap-10 lg:grid-cols-3">
-      <section class="lg:col-span-1">
+    <div class="grid gap-10 lg:grid-cols-5">
+      <section class="lg:col-span-2">
         <h2 class="mb-4 text-xl font-semibold text-gray-900">Ingredients</h2>
 
-        <ul class="space-y-2 text-gray-700">
+        <ul class="text-gray-700">
           {
             recipe.data.ingredients.map((ingredient) => (
-              <li class="flex gap-2 border-b-2">
-                <span class="font-medium">
+              <li class="grid grid-cols-3 border-b-2 text-xl py-2">
+                <span class="w-20 font-medium col-span-1">
                   {ingredient.amount} {ingredient.unit}
                 </span>
-                <span>{ingredient.name}</span>
+                <span class="col-span-2">{ingredient.name}</span>
               </li>
             ))
           }
         </ul>
       </section>
 
-      <section class="lg:col-span-2">
+      <section class="lg:col-span-3">
         <h2 class="mb-4 text-xl font-semibold text-gray-900">Instructions</h2>
 
         <div
