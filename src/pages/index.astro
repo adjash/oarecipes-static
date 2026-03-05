@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
+import RecipeCard from "../components/recipes/RecipeCard.astro";
 
 const recipes = await getCollection("recipes");
 const recent = recipes.filter((r) => r.data).slice(0, 3);
@@ -13,35 +14,7 @@ const recent = recipes.filter((r) => r.data).slice(0, 3);
       Most recent recipes
     </h1>
     <ul class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        recent.map((recipe) => (
-          <li class="group border-4 border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-            <a href={`/recipes/${recipe.slug}`} class="flex h-full flex-col">
-              <div class="border-b-4 border-black overflow-hidden">
-                <Image
-                  src={recipe.data.image}
-                  alt={recipe.data.title}
-                  class="max-h-[250px] w-full object-cover transition-transform group-hover:scale-105"
-                />
-              </div>
-
-              <div class="flex flex-1 flex-col p-5">
-                <h2 class="mb-4 text-2xl font-black leading-tight uppercase">
-                  {recipe.data.title}
-                </h2>
-
-                <ul class="mt-auto flex flex-wrap gap-2">
-                  {recipe.data.tags.map((tag) => (
-                    <li class="border-2 border-black bg-yellow-300 px-2 py-0.5 text-xs font-bold uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </a>
-          </li>
-        ))
-      }
+      {recent.map((recipe) => <RecipeCard recipe={recipe} />)}
     </ul>
   </div>
 </Layout>

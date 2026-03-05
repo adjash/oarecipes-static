@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import JumpToRecipe from "../../ui/JumpToRecipe.astro";
+
+const { data } = Astro.props;
+---
+
+<section class="mb-12">
+  <h1 class="mb-4 text-6xl font-black uppercase tracking-tighter leading-none">
+    {data.title}
+  </h1>
+
+  <p class="mb-6 text-xl font-medium border-l-8 border-black pl-4">
+    {data.description}
+  </p>
+
+  <div class="flex flex-wrap items-center gap-6 mb-8">
+    <JumpToRecipe />
+
+    <div
+      class="font-bold uppercase bg-white border-2 border-black p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+    >
+      Prep: {data.prepTime}m · Cook: {data.cookTime}m · Serves: {data.servings}
+    </div>
+  </div>
+
+  <div
+    class="border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] inline-block w-full"
+  >
+    <Image
+      src={data.image}
+      alt={data.title}
+      class="w-full h-auto object-cover max-h-[500px]"
+    />
+  </div>
+</section>
