@@ -1,12 +1,13 @@
 ---
 const { notes } = Astro.props;
+console.log(notes);
 ---
 
-<aside
-  class="mt-16 border-4 border-black bg-lime-300 p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
->
-  <h2 class="mb-4 text-2xl font-black uppercase tracking-tight">Notes</h2>
-  <div class="text-xl font-bold leading-relaxed">
-    {notes}
-  </div>
-</aside>
+{
+  notes && (
+    <aside class="mt-16 border-4 border-black bg-lime-300 p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+      <h2 class="mb-4 text-2xl font-black uppercase tracking-tight">Notes</h2>
+      <div class="text-xl font-bold leading-relaxed">{notes}</div>
+    </aside>
+  )
+}
