@@ -20,7 +20,7 @@ const { page } = Astro.props;
 
     <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {
-        page.data.map((recipe) => (
+        page.data.map((recipe: any) => (
           <li class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-lg">
             <a
               href={`/recipes/${recipe.slug}`}
@@ -38,7 +38,7 @@ const { page } = Astro.props;
                 </h2>
 
                 <ul class="mt-auto flex flex-wrap gap-2">
-                  {recipe.data.tags.map((tag) => (
+                  {recipe.data.tags.map((tag: string) => (
                     <li class="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-600">
                       {tag}
                     </li>

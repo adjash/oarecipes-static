@@ -17,8 +17,9 @@ const recipes = defineCollection({
         z.object({
           name: z.string(),
           amount: z.number(),
+          format: z.string().optional(),
           unit: z.string(),
-        })
+        }),
       ),
       notes: z.string(),
     }),
