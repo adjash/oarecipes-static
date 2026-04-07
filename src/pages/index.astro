@@ -5,10 +5,8 @@ import { Image } from "astro:assets";
 import RecipeCard from "../components/recipes/RecipeCard.astro";
 
 const recipes = await getCollection("recipes");
-const shuffle = (arr: any) => [...arr].sort(() => Math.random() - 0.5);
-const shuffled = shuffle(recipes)
-  .filter((r) => r.data)
-  .slice(0, 3);
+// const shuffle = (arr: any) => [...arr].sort(() => Math.random() - 0.5);
+// const shuffled = shuffle(recipes).filter((r) => r.data);
 ---
 
 <Layout>
@@ -17,7 +15,7 @@ const shuffled = shuffle(recipes)
       Most recent recipes
     </h1>
     <ul class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-      {shuffled.map((recipe) => <RecipeCard recipe={recipe} />)}
+      {recipes.map((recipe) => <RecipeCard recipe={recipe} />)}
     </ul>
   </div>
 </Layout>
